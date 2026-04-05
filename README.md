@@ -9,6 +9,8 @@
 <div align="center">
     <strong>精选的 DESIGN.md 文件合集，灵感来源于开发者专注的网站。</strong>
     <br />
+    <sub>汉化自 <a href="https://github.com/VoltAgent/awesome-design-md">VoltAgent/awesome-design-md</a></sub>
+    <br />
     <br />
 
 </div>
