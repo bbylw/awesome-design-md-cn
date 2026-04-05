@@ -1,0 +1,1332 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Awesome DESIGN.md — 精选设计系统合集</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0c0c0f;
+  --bg-card: #16161a;
+  --bg-card-hover: #1c1c22;
+  --surface: #22222a;
+  --border: #2a2a35;
+  --border-hover: #3a3a48;
+  --text: #e8e6e3;
+  --text-dim: #8a8a95;
+  --text-muted: #5a5a68;
+  --accent: #10b981;
+  --accent-dim: rgba(16, 185, 129, 0.12);
+  --accent-glow: rgba(16, 185, 129, 0.25);
+  --purple: #a78bfa;
+  --purple-dim: rgba(167, 139, 250, 0.12);
+  --orange: #f59e0b;
+  --orange-dim: rgba(245, 158, 11, 0.12);
+  --blue: #60a5fa;
+  --blue-dim: rgba(96, 165, 250, 0.12);
+  --pink: #f472b6;
+  --pink-dim: rgba(244, 114, 182, 0.12);
+  --cyan: #22d3ee;
+  --cyan-dim: rgba(34, 211, 238, 0.12);
+  --red: #f87171;
+  --red-dim: rgba(248, 113, 113, 0.12);
+  --radius: 16px;
+  --radius-sm: 10px;
+  --radius-xs: 6px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  font-family: 'Noto Sans SC', 'Space Grotesk', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+/* Noise overlay */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+}
+
+a { color: inherit; text-decoration: none; }
+
+.container {
+  max-w: 1400px;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 clamp(1rem, 4vw, 3rem);
+}
+
+/* ─── NAV ─── */
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  padding: 1rem 0;
+  background: rgba(12, 12, 15, 0.8);
+  backdrop-filter: blur(20px) saturate(1.6);
+  border-bottom: 1px solid var(--border);
+}
+
+nav .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 1.15rem;
+  letter-spacing: -0.03em;
+}
+
+.nav-brand .dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 12px var(--accent-glow);
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { box-shadow: 0 0 12px var(--accent-glow); }
+  50% { box-shadow: 0 0 24px var(--accent-glow), 0 0 48px rgba(16, 185, 129, 0.1); }
+}
+
+.nav-links {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.nav-links a {
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-xs);
+  font-size: 0.875rem;
+  color: var(--text-dim);
+  transition: all 0.2s;
+  font-weight: 500;
+}
+
+.nav-links a:hover {
+  color: var(--text);
+  background: var(--surface);
+}
+
+.nav-badge {
+  background: var(--accent-dim);
+  color: var(--accent);
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* ─── HERO ─── */
+.hero {
+  padding: clamp(4rem, 12vh, 8rem) 0 clamp(3rem, 8vh, 6rem);
+  position: relative;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -40%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 800px;
+  height: 800px;
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.06) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 1rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  margin-bottom: 2rem;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.hero-eyebrow .icon {
+  color: var(--accent);
+}
+
+.hero h1 {
+  font-family: 'Space Grotesk', 'Noto Sans SC', sans-serif;
+  font-size: clamp(2.8rem, 7vw, 5.5rem);
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+  margin-bottom: 1.5rem;
+  max-width: 900px;
+}
+
+.hero h1 .gradient {
+  background: linear-gradient(135deg, var(--accent), #34d399, #6ee7b7);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-desc {
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  color: var(--text-dim);
+  max-width: 640px;
+  line-height: 1.8;
+  margin-bottom: 2.5rem;
+  font-weight: 300;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1.75rem;
+  background: var(--accent);
+  color: #0c0c0f;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: all 0.2s;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 32px var(--accent-glow);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1.75rem;
+  background: var(--bg-card);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.btn-secondary:hover {
+  border-color: var(--border-hover);
+  background: var(--bg-card-hover);
+}
+
+/* ─── STATS ─── */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin-bottom: clamp(4rem, 10vh, 7rem);
+}
+
+.stat {
+  background: var(--bg-card);
+  padding: 2rem;
+  text-align: center;
+}
+
+.stat-number {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--accent);
+}
+
+.stat-label {
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  margin-top: 0.25rem;
+}
+
+/* ─── WHAT IS ─── */
+.what-is {
+  padding: clamp(3rem, 8vh, 6rem) 0;
+}
+
+.section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+  margin-bottom: 1.5rem;
+  padding: 0.35rem 0.85rem;
+  background: var(--accent-dim);
+  border-radius: var(--radius-xs);
+}
+
+.what-is h2 {
+  font-family: 'Space Grotesk', 'Noto Sans SC', sans-serif;
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  margin-bottom: 1.5rem;
+  line-height: 1.2;
+}
+
+.what-is-content {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 3rem;
+  align-items: start;
+}
+
+.what-is-text {
+  color: var(--text-dim);
+  font-size: 1.05rem;
+  line-height: 1.9;
+}
+
+.what-is-text p + p { margin-top: 1rem; }
+
+.compare-table {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.compare-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.compare-table th {
+  padding: 1rem 1.25rem;
+  text-align: left;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--border);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.compare-table td {
+  padding: 0.85rem 1.25rem;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.9rem;
+}
+
+.compare-table tr:last-child td { border-bottom: none; }
+
+.compare-table code {
+  font-family: 'JetBrains Mono', monospace;
+  background: var(--accent-dim);
+  color: var(--accent);
+  padding: 0.15rem 0.5rem;
+  border-radius: var(--radius-xs);
+  font-size: 0.85rem;
+}
+
+/* ─── SECTIONS TABLE ─── */
+.sections-grid {
+  padding: clamp(3rem, 8vh, 6rem) 0;
+}
+
+.sections-grid h2 {
+  font-family: 'Space Grotesk', 'Noto Sans SC', sans-serif;
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  margin-bottom: 2rem;
+}
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+}
+
+.feature-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  transition: all 0.25s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.feature-card:hover {
+  border-color: var(--border-hover);
+  background: var(--bg-card-hover);
+  transform: translateY(-2px);
+}
+
+.feature-num {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--surface);
+  position: absolute;
+  top: 0.5rem;
+  right: 1rem;
+  line-height: 1;
+}
+
+.feature-title {
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 0.35rem;
+  color: var(--text);
+}
+
+.feature-desc {
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  line-height: 1.6;
+}
+
+/* ─── COLLECTION ─── */
+.collection {
+  padding: clamp(3rem, 8vh, 6rem) 0;
+}
+
+.collection h2 {
+  font-family: 'Space Grotesk', 'Noto Sans SC', sans-serif;
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  margin-bottom: 2.5rem;
+}
+
+.category {
+  margin-bottom: 3rem;
+}
+
+.category-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.category-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-xs);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.cat-ai .category-icon { background: var(--purple-dim); color: var(--purple); }
+.cat-dev .category-icon { background: var(--blue-dim); color: var(--blue); }
+.cat-infra .category-icon { background: var(--orange-dim); color: var(--orange); }
+.cat-design .category-icon { background: var(--pink-dim); color: var(--pink); }
+.cat-fintech .category-icon { background: var(--cyan-dim); color: var(--cyan); }
+.cat-enterprise .category-icon { background: var(--red-dim); color: var(--red); }
+
+.category-title {
+  font-family: 'Space Grotesk', 'Noto Sans SC', sans-serif;
+  font-weight: 600;
+  font-size: 1.15rem;
+  letter-spacing: -0.02em;
+}
+
+.category-count {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-left: auto;
+}
+
+.site-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 0.75rem;
+}
+
+.site-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.site-card:hover {
+  border-color: var(--border-hover);
+  background: var(--bg-card-hover);
+  transform: translateX(4px);
+}
+
+.site-letter {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-xs);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.cat-ai .site-letter { background: var(--purple-dim); color: var(--purple); }
+.cat-dev .site-letter { background: var(--blue-dim); color: var(--blue); }
+.cat-infra .site-letter { background: var(--orange-dim); color: var(--orange); }
+.cat-design .site-letter { background: var(--pink-dim); color: var(--pink); }
+.cat-fintech .site-letter { background: var(--cyan-dim); color: var(--cyan); }
+.cat-enterprise .site-letter { background: var(--red-dim); color: var(--red); }
+
+.site-info { flex: 1; min-width: 0; }
+
+.site-name {
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 0.15rem;
+}
+
+.site-desc {
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.site-arrow {
+  color: var(--text-muted);
+  font-size: 1.1rem;
+  transition: transform 0.2s;
+  flex-shrink: 0;
+}
+
+.site-card:hover .site-arrow {
+  transform: translateX(3px);
+  color: var(--accent);
+}
+
+/* ─── HOW TO USE ─── */
+.how-to {
+  padding: clamp(3rem, 8vh, 6rem) 0;
+}
+
+.how-to h2 {
+  font-family: 'Space Grotesk', 'Noto Sans SC', sans-serif;
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  margin-bottom: 2rem;
+}
+
+.steps {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+.step {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 2rem;
+  position: relative;
+}
+
+.step-num {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 4rem;
+  font-weight: 900;
+  color: var(--surface);
+  line-height: 1;
+  margin-bottom: 1rem;
+}
+
+.step-title {
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+
+.step-desc {
+  color: var(--text-dim);
+  font-size: 0.9rem;
+  line-height: 1.7;
+}
+
+.step code {
+  font-family: 'JetBrains Mono', monospace;
+  background: var(--accent-dim);
+  color: var(--accent);
+  padding: 0.15rem 0.5rem;
+  border-radius: var(--radius-xs);
+  font-size: 0.85rem;
+}
+
+/* ─── FILES TABLE ─── */
+.files-info {
+  padding: clamp(2rem, 4vh, 3rem) 0;
+}
+
+.files-table {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.files-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.files-table th {
+  padding: 1rem 1.5rem;
+  text-align: left;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--border);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.files-table td {
+  padding: 0.85rem 1.5rem;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.9rem;
+}
+
+.files-table tr:last-child td { border-bottom: none; }
+
+.files-table code {
+  font-family: 'JetBrains Mono', monospace;
+  background: var(--accent-dim);
+  color: var(--accent);
+  padding: 0.15rem 0.5rem;
+  border-radius: var(--radius-xs);
+  font-size: 0.85rem;
+}
+
+/* ─── FOOTER ─── */
+footer {
+  padding: 3rem 0;
+  border-top: 1px solid var(--border);
+  margin-top: clamp(3rem, 8vh, 6rem);
+}
+
+.footer-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.footer-brand {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--text-dim);
+}
+
+.footer-links {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.footer-links a {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  transition: color 0.2s;
+}
+
+.footer-links a:hover { color: var(--accent); }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .stats { grid-template-columns: 1fr; }
+  .what-is-content { grid-template-columns: 1fr; }
+  .steps { grid-template-columns: 1fr; }
+  .site-grid { grid-template-columns: 1fr; }
+  .feature-grid { grid-template-columns: 1fr; }
+  .footer-inner { flex-direction: column; gap: 1rem; text-align: center; }
+  .hero h1 { font-size: 2.2rem; }
+}
+
+/* ─── ANIMATIONS ─── */
+@media (prefers-reduced-motion: no-preference) {
+  .fade-up {
+    opacity: 0;
+    transform: translateY(24px);
+    animation: fadeUp 0.6s ease forwards;
+  }
+
+  @keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .delay-1 { animation-delay: 0.1s; }
+  .delay-2 { animation-delay: 0.2s; }
+  .delay-3 { animation-delay: 0.3s; }
+  .delay-4 { animation-delay: 0.4s; }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--border-hover); }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="container">
+    <div class="nav-brand">
+      <span class="dot"></span>
+      Awesome DESIGN.md
+    </div>
+    <div class="nav-links">
+      <a href="#what-is">什么是 DESIGN.md</a>
+      <a href="#contents">包含内容</a>
+      <a href="#collection">合集</a>
+      <a href="#how-to">如何使用</a>
+    </div>
+    <span class="nav-badge">55 个设计系统</span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-eyebrow fade-up">
+      <span class="icon">◆</span> 灵感来源于 Google Stitch
+    </div>
+    <h1 class="fade-up delay-1">精选 <span class="gradient">DESIGN.md</span><br>设计系统合集</h1>
+    <p class="hero-desc fade-up delay-2">
+      从真实网站中提取的设计系统文档。复制到你的项目中，告诉 AI 代理「构建一个看起来像这样的页面」，即可获得完美匹配像素的 UI。
+    </p>
+    <div class="hero-actions fade-up delay-3">
+      <a href="https://github.com/VoltAgent/awesome-design-md" class="btn-primary" target="_blank">
+        ↗ 前往 GitHub
+      </a>
+      <a href="#collection" class="btn-secondary">
+        浏览合集 →
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="container">
+  <div class="stats fade-up delay-4">
+    <div class="stat">
+      <div class="stat-number">55</div>
+      <div class="stat-label">DESIGN.md 文件数</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">6</div>
+      <div class="stat-label">分类类别</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">9</div>
+      <div class="stat-label">标准章节</div>
+    </div>
+  </div>
+</div>
+
+<!-- WHAT IS -->
+<section class="what-is" id="what-is">
+  <div class="container">
+    <span class="section-label">◇ 概念介绍</span>
+    <h2>什么是 DESIGN.md？</h2>
+    <div class="what-is-content">
+      <div class="what-is-text">
+        <p><strong>DESIGN.md</strong> 是 <a href="https://stitch.withgoogle.com/docs/design-md/overview/" target="_blank" style="color:var(--accent);border-bottom:1px dashed var(--accent)">Google Stitch</a> 引入的全新概念 —— 一个纯文本的设计系统文档，AI 代理通过阅读它来生成一致的 UI。</p>
+        <p>它只是一个 Markdown 文件。无需导出 Figma，无需 JSON Schema，无需特殊工具。将它放入项目根目录，任何 AI 编码代理或 Google Stitch 都能立即理解你的 UI 应该如何呈现。</p>
+        <p>Markdown 是 LLM 最擅长阅读的格式，因此无需解析或配置。</p>
+      </div>
+      <div class="compare-table">
+        <table>
+          <thead>
+            <tr>
+              <th>文件</th>
+              <th>谁读取它</th>
+              <th>它定义了什么</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>AGENTS.md</code></td>
+              <td>编码代理</td>
+              <td>如何构建项目</td>
+            </tr>
+            <tr>
+              <td><code>DESIGN.md</code></td>
+              <td>设计代理</td>
+              <td>项目的外观和感觉</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTIONS -->
+<section class="sections-grid" id="contents">
+  <div class="container">
+    <span class="section-label">◇ 文件结构</span>
+    <h2>每个 DESIGN.md 包含什么</h2>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="feature-num">01</div>
+        <div class="feature-title">视觉主题与氛围</div>
+        <div class="feature-desc">情绪、密度、设计哲学</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-num">02</div>
+        <div class="feature-title">调色板与角色</div>
+        <div class="feature-desc">语义名称 + 十六进制值 + 功能角色</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-num">03</div>
+        <div class="feature-title">字体规则</div>
+        <div class="feature-desc">字体系列、完整层级表</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-num">04</div>
+        <div class="feature-title">组件样式</div>
+        <div class="feature-desc">按钮、卡片、输入框、导航及其状态</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-num">05</div>
+        <div class="feature-title">布局原则</div>
+        <div class="feature-desc">间距刻度、网格、留白哲学</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-num">06</div>
+        <div class="feature-title">深度与高程</div>
+        <div class="feature-desc">阴影系统、表面层级</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-num">07</div>
+        <div class="feature-title">应该与不应该</div>
+        <div class="feature-desc">设计护栏和反模式</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-num">08</div>
+        <div class="feature-title">响应式行为</div>
+        <div class="feature-desc">断点、触摸目标、折叠策略</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-num">09</div>
+        <div class="feature-title">代理提示指南</div>
+        <div class="feature-desc">快速颜色参考、即用型提示</div>
+      </div>
+    </div>
+
+    <!-- FILES TABLE -->
+    <div class="files-info" style="margin-top:2rem">
+      <div class="files-table">
+        <table>
+          <thead>
+            <tr>
+              <th>文件</th>
+              <th>用途</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>DESIGN.md</code></td>
+              <td>设计系统（代理读取的内容）</td>
+            </tr>
+            <tr>
+              <td><code>preview.html</code></td>
+              <td>视觉目录，展示色板、字体比例、按钮、卡片</td>
+            </tr>
+            <tr>
+              <td><code>preview-dark.html</code></td>
+              <td>相同的目录，但使用深色表面</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COLLECTION -->
+<section class="collection" id="collection">
+  <div class="container">
+    <span class="section-label">◇ 完整合集</span>
+    <h2>55 个可直接使用的设计系统</h2>
+
+    <!-- AI & ML -->
+    <div class="category cat-ai">
+      <div class="category-header">
+        <div class="category-icon">⬡</div>
+        <div class="category-title">AI 与机器学习</div>
+        <div class="category-count">12 个</div>
+      </div>
+      <div class="site-grid">
+        <a href="https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/claude/" target="_blank" class="site-card">
+          <div class="site-letter">C</div>
+          <div class="site-info">
+            <div class="site-name">Claude</div>
+            <div class="site-desc">温暖的赤陶强调色，干净的编辑布局</div>
+          </div>
+          <span class="site-arrow">→</span>
+        </a>
+        <a href="https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/cohere/" target="_blank" class="site-card">
+          <div class="site-letter">C</div>
+          <div class="site-info">
+            <div class="site-name">Cohere</div>
+            <div class="site-desc">充满活力的渐变，数据丰富的仪表板美学</div>
+          </div>
+          <span class="site-arrow">→</span>
+        </a>
+        <a href="https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/elevenlabs/" target="_blank" class="site-card">
+          <div class="site-letter">E</div>
+          <div class="site-info">
+            <div class="site-name">ElevenLabs</div>
+            <div class="site-desc">深色电影感 UI，音频波形美学</div>
+          </div>
+          <span class="site-arrow">→</span>
+        </a>
+        <a href="https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/minimax/" target="_blank" class="site-card">
+          <div class="site-letter">M</div>
+          <div class="site-info">
+            <div class="site-name">Minimax</div>
+            <div class="site-desc">大胆的深色界面，带有霓虹强调</div>
+          </div>
+          <span class="site-arrow">→</span>
+        </a>
+        <a href="https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/mistral.ai/" target="_blank" class="site-card">
+          <div class="site-letter">M</div>
+          <div class="site-info">
+            <div class="site-name">Mistral AI</div>
+            <div class="site-desc">法式工程极简主义，紫色调</div>
+          </div>
+          <span class="site-arrow">→</span>
+        </a>
+        <a href="https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/ollama/" target="_blank" class="site-card">
+          <div class="site-letter">O</div>
+          <div class="site-info">
+            <div class="site-name">Ollama</div>
+            <div class="site-desc">终端优先，单色简约</div>
+          </div>
+          <span class="site-arrow">→</span>
+        </a>
+        <a href="https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/opencode.ai/" target="_blank" class="site-card">
+          <div class="site-letter">O</div>
+          <div class="site-info">
+            <div class="site-name">OpenCode AI</div>
+            <div class="site-desc">开发者中心的深色主题</div>
+          </div>
+          <span class="site-arrow">→</span>
+        </a>
+        <a href="https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/replicate/" target="_blank" class="site-card">
+          <div class="site-letter">R</div>
+          <div class="site-info">
+            <div class="site-name">Replicate</div>
+            <div class="site-desc">干净的白色画布，代码优先</div>
+          </div>
+          <span class="site-arrow">→</span>
+        </a>
+        <a href="https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/runwayml/" target="_blank" class="site-card">
+          <div class="site-letter">R</div>
+          <div class="site-info">
+            <div class="site-name">RunwayML</div>
+            <div class="site-desc">电影感深色 UI，媒体丰富的布局</div>
+          </div>
+          <span class="site-arrow">→</span>
+        </a>
+        <a href="https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/together.ai/" target="_blank" class="site-card">
+          <div class="site-letter">T</div>
+          <div class="site-info">
+            <div class="site-name">Together AI</div>
+            <div class="site-desc">开源 AI 基础设施，蓝图式设计</div>
+          </div>
+          <span class="site-arrow">→</span>
+        </a>
+        <a href="https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/voltagent/" target="_blank" class="site-card">
+          <div class="site-letter">V</div>
+          <div class="site-info">
+            <div class="site-name">VoltAgent</div>
+            <div class="site-desc">虚空黑色画布，祖母绿强调，终端原生</div>
+          </div>
+          <span class="site-arrow">→</span>
+        </a>
+        <a href="https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/x.ai/" target="_blank" class="site-card">
+          <div class="site-letter">X</div>
+          <div class="site-info">
+            <div class="site-name">xAI</div>
+            <div class="site-desc">鲜明单色，未来主义极简主义</div>
+          </div>
+          <span class="site-arrow">→</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- 开发者工具 -->
+    <div class="category cat-dev">
+      <div class="category-header">
+        <div class="category-icon">⌘</div>
+        <div class="category-title">开发者工具与平台</div>
+        <div class="category-count">15 个</div>
+      </div>
+      <div class="site-grid">
+        <a href="https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/cursor/" target="_blank" class="site-card">
+          <div class="site-letter">C</div>
+          <div class="site-info"><div class="site-name">Cursor</div><div class="site-desc">流畅的深色界面，渐变强调色</div></div>
+          <span class="site-arrow">→</span>
+        </a>
+        <a href="https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/expo/" target="_blank" class="site-card">
+          <div class="site-letter">E</div>
+          <div class="site-info"><div class="site-name">Expo</div><div class="site-desc">深色主题，紧凑字间距，以代码为中心</div></div>
+          <span class="site-arrow">→</span>
+        </a>
+        <a href="https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/linear.app/" target="_blank" class="site-card">
+          <div class="site-letter">L</div>
+          <div class="site-info"><div class="site-name">Linear</div><div class="site-desc">超极简，精确，紫色强调</div></div>
+          <span class="site-arrow">→</span>
+        </a>
+        <a href="https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/lovable/" target="_blank" class="site-card">
+          <div class="site-letter">L</div>
+          <div class="site-info"><div class="site-name">Lovable</div><div class="site-desc">俏皮的渐变，友好的开发者美学</div></div>
+          <span class="site-arrow">→</span>
+        </a>
+        <a href="https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/mintlify/" target="_blank" class="site-card">
+          <div class="site-letter">M</div>
+          <div class="site-info"><div class="site-name">Mintlify</div><div class="site-desc">干净，绿色强调，阅读优化</div></div>
+          <span class="site-arrow">→</span>
+        </a>
+        <a href="https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/posthog/" target="_blank" class="site-card">
+          <div class="site-letter">P</div>
+          <div class="site-info"><div class="site-name">PostHog</div><div class="site-desc">俏皮的刺猬品牌，开发者友好</div></div>
+          <span class="site-arrow">→</span>
+        </a>
+        <a href="https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/raycast/" target="_blank" class="site-card">
+          <div class="site-letter">R</div>
+          <div class="site-info"><div class="site-name">Raycast</div><div class="site-desc">流畅的深色 chrome，渐变强调</div></div>
+          <span class="site-arrow">→</span>
+        </a>
+        <a href="https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/resend/" target="_blank" class="site-card">
+          <div class="site-letter">R</div>
+          <div class="site-info"><div class="site-name">Resend</div><div class="site-desc">极简深色主题，等宽字体强调</div></div>
+          <span class="site-arrow">→</span>
+        </a>
+        <a href="https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/sentry/" target="_blank" class="site-card">
+          <div class="site-letter">S</div>
+          <div class="site-info"><div class="site-name">Sentry</div><div class="site-desc">深色仪表板，数据密集，粉紫色强调</div></div>
+          <span class="site-arrow">→</span>
+        </a>
+        <a href="https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/supabase/" target="_blank" class="site-card">
+          <div class="site-letter">S</div>
+          <div class="site-info"><div class="site-name">Supabase</div><div class="site-desc">深祖母绿主题，代码优先</div></div>
+          <span class="site-arrow">→</span>
+        </a>
+        <a href="https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/superhuman/" target="_blank" class="site-card">
+          <div class="site-letter">S</div>
+          <div class="site-info"><div class="site-name">Superhuman</div><div class="site-desc">高级深色 UI，键盘优先，紫色光晕</div></div>
+          <span class="site-arrow">→</span>
+        </a>
+        <a href="https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/vercel/" target="_blank" class="site-card">
+          <div class="site-letter">V</div>
+          <div class="site-info"><div class="site-name">Vercel</div><div class="site-desc">黑白精确，Geist 字体</div></div>
+          <span class="site-arrow">→</span>
+        </a>
+        <a href="https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/warp/" target="_blank" class="site-card">
+          <div class="site-letter">W</div>
+          <div class="site-info"><div class="site-name">Warp</div><div class="site-desc">深色 IDE 类界面，基于块的命令 UI</div></div>
+          <span class="site-arrow">→</span>
+        </a>
+        <a href="https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/zapier/" target="_blank" class="site-card">
+          <div class="site-letter">Z</div>
+          <div class="site-info"><div class="site-name">Zapier</div><div class="site-desc">温暖的橙色，友好的插图驱动</div></div>
+          <span class="site-arrow">→</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- 基础设施 -->
+    <div class="category cat-infra">
+      <div class="category-header">
+        <div class="category-icon">⛁</div>
+        <div class="category-title">基础设施与云</div>
+        <div class="category-count">6 个</div>
+      </div>
+      <div class="site-grid">
+        <a href="https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/clickhouse/" target="_blank" class="site-card">
+          <div class="site-letter">C</div>
+          <div class="site-info"><div class="site-name">ClickHouse</div><div class="site-desc">黄色强调，技术文档风格</div></div>
+          <span class="site-arrow">→</span>
+        </a>
+        <a href="https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/composio/" target="_blank" class="site-card">
+          <div class="site-letter">C</div>
+          <div class="site-info"><div class="site-name">Composio</div><div class="site-desc">现代深色，带有彩色集成图标</div></div>
+          <span class="site-arrow">→</span>
+        </a>
+        <a href="https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/hashicorp/" target="_blank" class="site-card">
+          <div class="site-letter">H</div>
+          <div class="site-info"><div class="site-name">HashiCorp</div><div class="site-desc">企业级干净，黑白</div></div>
+          <span class="site-arrow">→</span>
+        </a>
+        <a href="https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/mongodb/" target="_blank" class="site-card">
+          <div class="site-letter">M</div>
+          <div class="site-info"><div class="site-name">MongoDB</div><div class="site-desc">绿叶品牌，开发者文档焦点</div></div>
+          <span class="site-arrow">→</span>
+        </a>
+        <a href="https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/sanity/" target="_blank" class="site-card">
+          <div class="site-letter">S</div>
+          <div class="site-info"><div class="site-name">Sanity</div><div class="site-desc">红色强调，内容优先的编辑布局</div></div>
+          <span class="site-arrow">→</span>
+        </a>
+        <a href="https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/stripe/" target="_blank" class="site-card">
+          <div class="site-letter">S</div>
+          <div class="site-info"><div class="site-name">Stripe</div><div class="site-desc">标志性紫色渐变，weight-300 优雅</div></div>
+          <span class="site-arrow">→</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- 设计与生产力 -->
+    <div class="category cat-design">
+      <div class="category-header">
+        <div class="category-icon">◎</div>
+        <div class="category-title">设计与生产力</div>
+        <div class="category-count">10 个</div>
+      </div>
+      <div class="site-grid">
+        <a href="https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/airtable/" target="_blank" class="site-card">
+          <div class="site-letter">A</div>
+          <div class="site-info"><div class="site-name">Airtable</div><div class="site-desc">多彩，友好，结构化数据美学</div></div>
+          <span class="site-arrow">→</span>
+        </a>
+        <a href="https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/cal/" target="_blank" class="site-card">
+          <div class="site-letter">C</div>
+          <div class="site-info"><div class="site-name">Cal.com</div><div class="site-desc">干净的中性 UI，面向开发的简约性</div></div>
+          <span class="site-arrow">→</span>
+        </a>
+        <a href="https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/clay/" target="_blank" class="site-card">
+          <div class="site-letter">C</div>
+          <div class="site-info"><div class="site-name">Clay</div><div class="site-desc">有机形状，柔和渐变，艺术导向</div></div>
+          <span class="site-arrow">→</span>
+        </a>
+        <a href="https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/figma/" target="_blank" class="site-card">
+          <div class="site-letter">F</div>
+          <div class="site-info"><div class="site-name">Figma</div><div class="site-desc">充满活力的多色，有趣而专业</div></div>
+          <span class="site-arrow">→</span>
+        </a>
+        <a href="https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/framer/" target="_blank" class="site-card">
+          <div class="site-letter">F</div>
+          <div class="site-info"><div class="site-name">Framer</div><div class="site-desc">大胆的黑蓝，动效优先，设计前卫</div></div>
+          <span class="site-arrow">→</span>
+        </a>
+        <a href="https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/intercom/" target="_blank" class="site-card">
+          <div class="site-letter">I</div>
+          <div class="site-info"><div class="site-name">Intercom</div><div class="site-desc">友好的蓝色调色板，对话式 UI</div></div>
+          <span class="site-arrow">→</span>
+        </a>
+        <a href="https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/miro/" target="_blank" class="site-card">
+          <div class="site-letter">M</div>
+          <div class="site-info"><div class="site-name">Miro</div><div class="site-desc">明亮的黄色强调，无限画布美学</div></div>
+          <span class="site-arrow">→</span>
+        </a>
+        <a href="https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/notion/" target="_blank" class="site-card">
+          <div class="site-letter">N</div>
+          <div class="site-info"><div class="site-name">Notion</div><div class="site-desc">温暖的极简主义，衬线标题，柔和表面</div></div>
+          <span class="site-arrow">→</span>
+        </a>
+        <a href="https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/pinterest/" target="_blank" class="site-card">
+          <div class="site-letter">P</div>
+          <div class="site-info"><div class="site-name">Pinterest</div><div class="site-desc">红色强调，砌体网格，图像优先</div></div>
+          <span class="site-arrow">→</span>
+        </a>
+        <a href="https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/webflow/" target="_blank" class="site-card">
+          <div class="site-letter">W</div>
+          <div class="site-info"><div class="site-name">Webflow</div><div class="site-desc">蓝色强调，精致的营销网站美学</div></div>
+          <span class="site-arrow">→</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- 金融科技 -->
+    <div class="category cat-fintech">
+      <div class="category-header">
+        <div class="category-icon">◈</div>
+        <div class="category-title">金融科技与加密货币</div>
+        <div class="category-count">4 个</div>
+      </div>
+      <div class="site-grid">
+        <a href="https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/coinbase/" target="_blank" class="site-card">
+          <div class="site-letter">C</div>
+          <div class="site-info"><div class="site-name">Coinbase</div><div class="site-desc">干净的蓝色身份，以信任为中心</div></div>
+          <span class="site-arrow">→</span>
+        </a>
+        <a href="https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/kraken/" target="_blank" class="site-card">
+          <div class="site-letter">K</div>
+          <div class="site-info"><div class="site-name">Kraken</div><div class="site-desc">紫色强调深色 UI，数据密集仪表板</div></div>
+          <span class="site-arrow">→</span>
+        </a>
+        <a href="https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/revolut/" target="_blank" class="site-card">
+          <div class="site-letter">R</div>
+          <div class="site-info"><div class="site-name">Revolut</div><div class="site-desc">流畅的深色界面，渐变卡片，金融精度</div></div>
+          <span class="site-arrow">→</span>
+        </a>
+        <a href="https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/wise/" target="_blank" class="site-card">
+          <div class="site-letter">W</div>
+          <div class="site-info"><div class="site-name">Wise</div><div class="site-desc">明亮的绿色强调，友好而清晰</div></div>
+          <span class="site-arrow">→</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- 企业与消费者 -->
+    <div class="category cat-enterprise">
+      <div class="category-header">
+        <div class="category-icon">▣</div>
+        <div class="category-title">企业与消费者</div>
+        <div class="category-count">8 个</div>
+      </div>
+      <div class="site-grid">
+        <a href="https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/airbnb/" target="_blank" class="site-card">
+          <div class="site-letter">A</div>
+          <div class="site-info"><div class="site-name">Airbnb</div><div class="site-desc">温暖的珊瑚强调色，摄影驱动，圆角 UI</div></div>
+          <span class="site-arrow">→</span>
+        </a>
+        <a href="https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/apple/" target="_blank" class="site-card">
+          <div class="site-letter">A</div>
+          <div class="site-info"><div class="site-name">Apple</div><div class="site-desc">高级留白，SF Pro，电影感图像</div></div>
+          <span class="site-arrow">→</span>
+        </a>
+        <a href="https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/bmw/" target="_blank" class="site-card">
+          <div class="site-letter">B</div>
+          <div class="site-info"><div class="site-name">BMW</div><div class="site-desc">深色高级表面，精密德国工程美学</div></div>
+          <span class="site-arrow">→</span>
+        </a>
+        <a href="https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/ibm/" target="_blank" class="site-card">
+          <div class="site-letter">I</div>
+          <div class="site-info"><div class="site-name">IBM</div><div class="site-desc">Carbon 设计系统，结构化蓝色调色板</div></div>
+          <span class="site-arrow">→</span>
+        </a>
+        <a href="https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/nvidia/" target="_blank" class="site-card">
+          <div class="site-letter">N</div>
+          <div class="site-info"><div class="site-name">NVIDIA</div><div class="site-desc">绿黑能量，技术力量美学</div></div>
+          <span class="site-arrow">→</span>
+        </a>
+        <a href="https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/spacex/" target="_blank" class="site-card">
+          <div class="site-letter">S</div>
+          <div class="site-info"><div class="site-name">SpaceX</div><div class="site-desc">鲜明的黑白，全出血图像，未来主义</div></div>
+          <span class="site-arrow">→</span>
+        </a>
+        <a href="https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/spotify/" target="_blank" class="site-card">
+          <div class="site-letter">S</div>
+          <div class="site-info"><div class="site-name">Spotify</div><div class="site-desc">深色背景上的活力绿，大胆字体</div></div>
+          <span class="site-arrow">→</span>
+        </a>
+        <a href="https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/uber/" target="_blank" class="site-card">
+          <div class="site-letter">U</div>
+          <div class="site-info"><div class="site-name">Uber</div><div class="site-desc">大胆的黑白，紧凑字体，城市能量</div></div>
+          <span class="site-arrow">→</span>
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- HOW TO -->
+<section class="how-to" id="how-to">
+  <div class="container">
+    <span class="section-label">◇ 快速开始</span>
+    <h2>如何使用</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-title">复制 DESIGN.md</div>
+        <div class="step-desc">将目标站点的 <code>DESIGN.md</code> 文件复制到你的项目根目录。</div>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-title">告诉 AI 代理</div>
+        <div class="step-desc">在提示中告诉你的 AI 编码代理：「请根据 DESIGN.md 构建一个看起来像这样的页面」，即可获得完美匹配的 UI。</div>
+      </div>
+    </div>
+
+    <div style="margin-top:2.5rem;padding:1.5rem 2rem;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);display:flex;align-items:center;gap:1rem;flex-wrap:wrap">
+      <span style="color:var(--accent);font-size:1.2rem">✦</span>
+      <span style="color:var(--text-dim);font-size:0.9rem">想请求为某个网站生成 DESIGN.md？</span>
+      <a href="https://github.com/VoltAgent/awesome-design-md/issues/new?template=design-md-request.yml" target="_blank" class="btn-primary" style="margin-left:auto;padding:0.6rem 1.2rem;font-size:0.85rem">
+        提交 Issue →
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">Awesome DESIGN.md © 2025</div>
+      <div class="footer-links">
+        <a href="https://github.com/VoltAgent/awesome-design-md" target="_blank">GitHub</a>
+        <a href="https://github.com/VoltAgent/awesome-design-md/blob/main/CONTRIBUTING.md" target="_blank">贡献指南</a>
+        <a href="https://github.com/VoltAgent/awesome-design-md/blob/main/LICENSE" target="_blank">MIT 许可证</a>
+        <a href="https://s.voltagent.dev/discord" target="_blank">Discord</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
